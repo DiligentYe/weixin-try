@@ -3,6 +3,28 @@
     "pages/index/index",
     "pages/logs/logs"
   ],
+  "tabBar": {
+    "list": [
+      {
+        "iconPath": "img/icon.jpg",
+        "selectedIconPath": "img/icon.jpg",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "iconPath": "img/icon.jpg",
+        "selectedIconPath": "img/icon.jpg",
+        "pagePath": "pages/logs/logs",
+        "text": "日志"
+      },
+      {
+        "iconPath": "img/icon.jpg",
+        "selectedIconPath": "img/icon.jpg",
+        "pagePath": "pages/index/index",
+        "text": "日志"
+      }
+    ]
+  },
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
