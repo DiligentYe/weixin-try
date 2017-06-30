@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/logs/logs",
+    "pages/intheaters/intheaters",
     "pages/comingsoon/commingsoon",
-    "pages/intheaters/intheaters"
+    "pages/index/index",
+    "pages/logs/logs"
   ],
   "tabBar": {
     "list": [

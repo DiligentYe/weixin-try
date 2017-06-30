@@ -1,18 +1,41 @@
 // intheaters.js
-Page({
+//获取应用实例
+var app = getApp();
+var loadUrl = 'https://api.douban.com/v2/movie/in_theaters';
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-  
+    inTheaterMovie: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    console.log('ok');
+    wx.request({
+      url: loadUrl,
+      data: {
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        that.data.inTheaterMovie = that.data.inTheaterMovie.concat(res.data.subjects);
+        that.setData({
+          inTheaterMovie: that.data.inTheaterMovie
+        }); 
+        console.log(that.data.inTheaterMovie);
+      },
+      fail: function(res) {
+        console.log('error');
+      }
+    });
   },
 
   /**

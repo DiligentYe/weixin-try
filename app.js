@@ -24,6 +24,10 @@ App({
   },
 
   globalData: {
-    userInfo: null
+    userInfo: null,
+    // // 正在上映电影
+    // inTheaterMovie: [],
+    // // 即将上映电影
+    // comingsoonMovie: []
   }
 })

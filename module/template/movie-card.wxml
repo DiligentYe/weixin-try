@@ -1,0 +1,11 @@
+<template name="movie-card">
+  <view class="movie-card">
+    <image src="" class="movie-post" id="movie-post">pic</image>
+    <view class="movie-title">电影名称：变形金刚：最后的骑士</view>
+    <view class="movie-type"><text>类型：</text>动作科幻</view>
+    <view class="movie-time"><text>上映时间：</text>2017-6-23</view>
+    <view class="movie-rating">4.7</view>
+    <view class="movie-add">收藏</view>
+  </view>
+</template>
+

@@ -1,2 +1,11 @@
 <!--intheaters.wxml-->
-<text>intheaters.wxml</text>
+<block wx:for="{{inTheaterMovie}}" wx:for-item="movie">
+  <view class="movie-card">
+    <image src="" class="movie-post" id="movie-post">pic</image>
+    <view class="movie-title">电影名称：{{movie.title}}</view>
+    <view class="movie-type"><text>类型：</text>{{movie.genres}}</view>
+    <view class="movie-time"><text>上映时间：</text>{{movie.year}}</view>
+    <view class="movie-rating">{{movie.rating.average}}</view>
+    <view class="movie-add">收藏</view>
+  </view>
+</block>
