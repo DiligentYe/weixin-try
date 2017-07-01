@@ -17,7 +17,9 @@ Page({
     // 请求起始位置
     start: 0,
     // 是否已经加载全部
-    isEnd: false
+    isEnd: false,
+    // 存储已经添加收藏电影信息
+    myMovies:{}
   },
 
   /**
@@ -25,7 +27,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    // 发送请求数据
+    // 发送请求数据,请求电影信息
     wx.request({
       url: loadUrl,
       data: {
@@ -39,7 +41,9 @@ Page({
       },
       // 请求数据成功之后,重新渲染页面
       success: function (res) {
-        that.data.inTheaterMovie = that.data.inTheaterMovie.concat(res.data.subjects);
+        // 更新数据
+        that.appendData(res);
+        // 更新视图
         that.setData({
           inTheaterMovie: that.data.inTheaterMovie,
           start: that.data.requestCount + that.data.start,
@@ -50,6 +54,13 @@ Page({
         console.log('error');
       }
     });
+    // 获取已收藏电影信息
+    try {
+      var my_movie = wx.getStorageSync('my_movie');
+      this.data.myMovies = my_movie ? my_movie : [];
+    } catch (e) {
+      this.data.myMovies = [];
+    }
   },
 
   /**
@@ -71,8 +82,11 @@ Page({
       },
       // 请求数据成功之后,重新渲染页面
       success: function (res) {
-        if (res.data.subjects.length != 0) {
-          that.data.inTheaterMovie = that.data.inTheaterMovie.concat(res.data.subjects);
+        var len = res.data.subjects.length;
+        if (len != 0) {
+          // 更新数据
+          that.appendData(res);
+          // 更新视图
           that.setData({
             inTheaterMovie: that.data.inTheaterMovie,
             start: that.data.requestCount + that.data.start,
@@ -99,5 +113,79 @@ Page({
     wx.navigateTo({
       url: "../../pages/moviedetail/moviedetail?id=" + event.target.dataset.id
     });
+  },
+
+  /**
+   * 判断电影收藏或者取消
+   */
+  addMovie: function (event) {
+    // 如果已经收藏，则取消收藏
+    // 在loacolstore中的位置
+    var index_loc = this.isAddTo(event.target.dataset.id);
+    // 在inTheaterMovie中的位置
+    var index_data = this.getPosition(event.target.dataset.id);
+  
+   if(index_loc != -1){
+     this.data.inTheaterMovie[index_data].isAdd = false;
+     this.data.myMovies.splice(index_loc, 1);
+     
+   } else {
+     // 如果没有收藏，添加收藏
+     this.data.inTheaterMovie[index_data].isAdd = true;
+     this.data.myMovies.push(this.data.inTheaterMovie[index_data]);
+   }
+   // 更新localstore  
+   try {
+     wx.setStorageSync('my_movie', this.data.myMovies);
+   } catch (e) {
+     this.data.inTheaterMovie[index_data].isAdd = false;
+   }
+   //  
+   this.setData({
+     inTheaterMovie: this.data.inTheaterMovie,
+   });
+  },
+
+  /**
+   * 判断电影是否已经收藏，并返回在内存中存放位置
+   */
+  isAddTo: function (id) {
+    var len = this.data.myMovies.length;
+    for (var i = 0; i < this.data.myMovies.length; ++i) {
+      if (id == this.data.myMovies[i].id) {
+        console.log(this.data.myMovies[i].id);
+        return i;
+      }
+    }
+    return -1;
+  },
+
+  /**
+   * 判断电影在inTheaterMovie中的位置
+   */
+  getPosition: function (id) {
+    var len = this.data.inTheaterMovie.length;
+    for (var i = 0; i < len; ++i) {
+      if (this.data.inTheaterMovie[i].id == id) {
+        return i;
+      }
+    }
+  },
+
+  /**
+   * 处理请求新数据,添加isAdd属性，添加到inTheaterMovie
+   */
+  appendData: function (res) {
+    var len = res.data.subjects.length;
+    // 判断电影是否已经收藏, 添加相应的isAdd属性
+    for (var i = 0; i < len; ++i) {
+      if (this.isAddTo(res.data.subjects[i].id) != -1) {
+        res.data.subjects[i].isAdd = true;
+      } else {
+        res.data.subjects[i].isAdd = false;
+      }
+    }
+    // 将处理好的数据添加到inTheaterMovie中
+    this.data.inTheaterMovie = this.data.inTheaterMovie.concat(res.data.subjects);
   }
-})
+});

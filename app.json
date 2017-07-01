@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/intheaters/intheaters",
-    "pages/comingsoon/commingsoon",
     "pages/index/index",
+    "pages/comingsoon/commingsoon",
     "pages/logs/logs",
     "pages/moviedetail/moviedetail"
     

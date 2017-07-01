@@ -76,6 +76,20 @@
   border: 1px solid #eee;
   border-radius: 2px;
 }
+
+.movie-added {
+    position:absolute;
+    right:20px;
+    bottom:10px;
+    width:40px;
+    height:20px;
+    text-align:center;
+    line-height:20px;
+    border: 1px solid rgb( 78,192, 70);
+    border-radius: 2px;
+    background: rgb( 78,192, 70);
+    color: #fff;
+}
 .end-tips {
   text-align:center;
   font-size:12px;

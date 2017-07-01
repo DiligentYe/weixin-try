@@ -22,5 +22,26 @@ Page({
         userInfo:userInfo
       })
     })
+  },
+
+  /**
+   * 清除本地数据
+   */
+  clearData: function () {
+    // 清除本地存储的数据
+    try {
+      wx.removeStorageSync("my_movie");
+    } catch (e) {
+      console.log('清除本地存储的数据');
+    }
+  },
+
+  /**
+   * 展示我的收藏
+   */
+  showCollection: function () {
+    
   }
+
+  
 })

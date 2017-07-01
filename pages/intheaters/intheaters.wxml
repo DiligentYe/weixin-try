@@ -7,7 +7,8 @@
       <view class="movie-type"><text>类型：</text>{{movie.genres}}</view>
       <view class="movie-time"><text>上映时间：</text>{{movie.year}}</view>
       <view class="movie-rating">{{movie.rating.average}}</view>
-      <view class="movie-add">收藏</view>
+      <view class="movie-add" wx:if="{{!movie.isAdd}}" catchtap="addMovie" data-id="{{movie.id}}">收藏</view>
+      <view class="movie-added" wx:if="{{movie.isAdd}}" catchtap="addMovie"data-id="{{movie.id}}">收藏</view>
     </view>
   </block>
 </view>
