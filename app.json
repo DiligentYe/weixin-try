@@ -3,7 +3,9 @@
     "pages/intheaters/intheaters",
     "pages/comingsoon/commingsoon",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/moviedetail/moviedetail"
+    
   ],
   "tabBar": {
     "list": [

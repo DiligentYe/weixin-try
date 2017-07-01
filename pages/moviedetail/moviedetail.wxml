@@ -1,0 +1,30 @@
+<!--moviedetail.wxml-->
+<!--电影介绍-->
+<view class="movie-detail">
+  <image src="{{detail.images.large}}" class="movie-avatar"></image>
+  <view class="movie-info">
+    <view class="movie-title">{{detail.title}} <text class="movie-time">({{detail.year}})</text></view>
+    <view class="movie-directors"><text class="movie-directors-title">导演：</text>{{detail.directorsStr}}</view>
+    <view class="movie-casts"><text class="movie-casts-title">演员：</text>{{detail.castsStr}}</view>
+    <view class="movie-summary"><text class="movie-summary-title">简介：</text><text>{{detail.summary}}</text></view>
+  </view>
+</view>
+<!--演员表-->
+<view class="movie-casts-avatar">
+<scroll-view scroll-x="true" class="movie-casts-avatar-scroll">
+  <block wx:for="{{detail.directors}}" wx:for-item="director">
+      <view id="green" class="movie-director" wx:key="{{director.id}}">
+        <image src="{{director.avatars.small}}" class="movie-director-avatar" style="width: 50px;height: 50px;"></image>
+        <view class="movie-cast-name"><view>导演</view><view class="name">{{director.name}}</view></view>
+      </view>
+  </block>
+    
+  <block wx:for="{{detail.casts}}" wx:for-item="cast">
+    <view class="movie-cast">
+      <image src="{{cast.avatars.small}}" class="movie-cast-avatar" style="width: 50px;height: 50px;"></image>
+      <view class="movie-cast-name"><view>演员</view><view class="name">{{cast.name}}</view></view>
+    </view>
+  </block>
+  </scroll-view>
+</view>
+<!--评论-->

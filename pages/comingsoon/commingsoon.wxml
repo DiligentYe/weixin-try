@@ -1,2 +1,17 @@
-<!--commingsoon.wxml-->
+<!--intheaters.wxml-->
+<view class="movie-card-wrap">
+  <block wx:for="{{inTheaterMovie}}" wx:for-item="movie" bindtap="showDetail">
+    <view class="movie-card" wx:key="{{movie.id}}" data-id="{{movie.id}}" bindtap="showDetail">
+      <image src="" class="movie-post" id="movie-post" src="{{movie.images.small}}" mode="aspectFit"></image>
+      <view class="movie-title">电影名称：{{movie.title}}</view>
+      <view class="movie-type"><text>类型：</text>{{movie.genres}}</view>
+      <view class="movie-time"><text>上映时间：</text>{{movie.year}}</view>
+      <view class="movie-rating">{{movie.rating.average}}</view>
+      <view class="movie-add">收藏</view>
+    </view>
+  </block>
+</view>
+
+<view class="end-tips" wx:if="{{isEnd}}">已经加载全部</view>
+<view class="end-tips" wx:if="{{!isEnd}}">正在加载...</view>
 

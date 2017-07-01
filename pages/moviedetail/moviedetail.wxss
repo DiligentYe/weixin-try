@@ -1,0 +1,83 @@
+/* moviedetail.wxss */
+/* 78 192 70*/
+.movie-detail {
+  position: relative;
+  padding: 10px 10px 10px 160px;
+  height: 180px;
+  font-size: 12px;
+  background: rgba( 78,192, 70, .8);
+  color: #fff;
+}
+
+.movie-avatar {
+  position:absolute;
+  left:10px;
+  width:140px;
+  height:180px;
+  background:#eee;
+}
+
+.movie-title, 
+.movie-directors,
+.movie-casts {
+  padding-bottom:5px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+}
+.movie-title {
+  font-size:13px;
+  font-weight:600;
+  padding-bottom:8px;
+}
+
+.movie-directors-title,
+.movie-casts-title,
+.movie-summary-title {
+  font-weight:500;
+}
+
+.movie-summary {
+  font-size: 10px;
+}
+
+.movie-casts-avatar-scroll {
+  /*height: 80px;*/
+  font-size: 10px;
+  white-space: nowrap;
+  display: flex;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.movie-director,
+.movie-cast {
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  padding-right: 5px;
+  text-align: center;
+}
+
+.movie-director-avatar,
+.movie-cast-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #f40;
+}
+
+.movie-director-name,
+.movie-cast-name {
+  padding-top: 5px;
+}
+
+.name {
+  padding-top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
