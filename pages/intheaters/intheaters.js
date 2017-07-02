@@ -13,7 +13,7 @@ Page({
     // 总电影个数
     total: 0,
     // 每次请求电影个数
-    requestCount: 10,
+    requestCount: 3,
     // 请求起始位置
     start: 0,
     // 是否已经加载全部
@@ -60,6 +60,36 @@ Page({
       this.data.myMovies = my_movie ? my_movie : [];
     } catch (e) {
       this.data.myMovies = [];
+    }
+  },
+
+  /**
+ * 生命周期函数--监听页面显示
+ */
+  onShow: function () {
+    console.log('bb');
+    if (app.globalData.isChangeLocal) {
+      // 获取已收藏电影信息
+      try {
+        var my_movie = wx.getStorageSync('my_movie');
+        this.data.myMovies = my_movie ? my_movie : [];
+      } catch (e) {
+        this.data.myMovies = [];
+      }
+      // 更新数据
+      var len = this.data.inTheaterMovie.length;
+      for (var i = 0; i < len; ++i) {
+        if (this.isAddTo(this.data.inTheaterMovie[i].id) != -1) {
+          this.data.inTheaterMovie[i].isAdd = true;
+        } else {
+          this.data.inTheaterMovie[i].isAdd = false;
+        }
+      }
+      app.globalData.isChangeLocal = false;
+      // 更新视图
+      this.setData({
+        inTheaterMovie: this.data.inTheaterMovie
+      });
     }
   },
 
@@ -137,6 +167,7 @@ Page({
    // 更新localstore  
    try {
      wx.setStorageSync('my_movie', this.data.myMovies);
+     app.globalData.isChangeLocal = true;
    } catch (e) {
      this.data.inTheaterMovie[index_data].isAdd = false;
    }

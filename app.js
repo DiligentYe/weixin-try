@@ -25,9 +25,7 @@ App({
 
   globalData: {
     userInfo: null,
-    // // 正在上映电影
-    // inTheaterMovie: [],
-    // // 即将上映电影
-    // comingsoonMovie: []
+    // 是否改变本地数据
+    isChangeLocal: false
   }
 })

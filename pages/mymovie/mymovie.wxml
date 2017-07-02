@@ -1,0 +1,5 @@
+<!--mymovie.wxml-->
+<!--引入模版-->
+<import src="../intheaters/intheaters.wxml" />
+<!--渲染模版-->
+<template is="movieList" data="{{inTheaterMovie}}" />

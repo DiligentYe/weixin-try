@@ -40,7 +40,19 @@ Page({
    * 展示我的收藏
    */
   showCollection: function () {
-    
+    // // 更新数据
+    // try {
+    //   this.data.myMovies = this.data.wx.getStorageSync("my_movie");
+    // } catch (e) {
+    //   console.log(e);
+    // }
+    // // 更新视图
+    // this.setData({
+    //   myMovies: this.data.myMovies
+    // });
+    wx.navigateTo({
+      url: '../../pages/mymovie/mymovie'
+    })
   }
 
   

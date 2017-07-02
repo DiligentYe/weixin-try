@@ -1,11 +1,11 @@
 {
   "pages": [
-    "pages/intheaters/intheaters",
     "pages/index/index",
+    "pages/intheaters/intheaters",
     "pages/comingsoon/commingsoon",
     "pages/logs/logs",
-    "pages/moviedetail/moviedetail"
-    
+    "pages/moviedetail/moviedetail",
+    "pages/mymovie/mymovie"
   ],
   "tabBar": {
     "list": [

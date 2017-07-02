@@ -1,0 +1,2 @@
+/* mymovie.wxss */
+@import "../intheaters/intheaters.wxss";
