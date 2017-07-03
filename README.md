@@ -50,6 +50,16 @@
 4. 配置window属性问题
     在app.json中需要指定"window"字段，但是在相应page.json中，由于只能配置window属性，因此，直接添加对象即可
 
+5. 定义模版语法格式
+    WXML中：
+    <!--引入模版-->
+      <import src="../intheaters/intheaters.wxml" />
+    <!--渲染模版-->
+      <template is="movieList" data="{{inTheaterMovie}}" />
+
+    WXSS中：
+    @import "../intheaters/intheaters.wxss";
+
 
 
 

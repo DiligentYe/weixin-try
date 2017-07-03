@@ -10,20 +10,20 @@
   "tabBar": {
     "list": [
       {
-        "iconPath": "img/comingsoon-1.png",
-        "selectedIconPath": "img/comingsoon-2.png",
+        "iconPath": "img/comingsoon-none.png",
+        "selectedIconPath": "img/comingsoon.png",
         "pagePath": "pages/comingsoon/commingsoon",
         "text": "即将上映"
       },
       {
-        "iconPath": "img/intheaters-1.png",
-        "selectedIconPath": "img/intheaters-2.png",
+        "iconPath": "img/intheaters-none.png",
+        "selectedIconPath": "img/intheaters.png",
         "pagePath": "pages/intheaters/intheaters",
         "text": "正在热映"
       },
       {
-        "iconPath": "img/mycollection-2.png",
-        "selectedIconPath": "img/mycollection-1.png",
+        "iconPath": "img/mycollection-none.png",
+        "selectedIconPath": "img/mycollection.png",
         "pagePath": "pages/index/index",
         "text": "我的电影"
       }
