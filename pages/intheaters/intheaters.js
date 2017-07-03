@@ -13,7 +13,7 @@ Page({
     // 总电影个数
     total: 0,
     // 每次请求电影个数
-    requestCount: 3,
+    requestCount: 10,
     // 请求起始位置
     start: 0,
     // 是否已经加载全部

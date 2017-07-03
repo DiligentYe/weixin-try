@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/intheaters/intheaters",
+    "pages/index/index",
     "pages/comingsoon/commingsoon",
     "pages/logs/logs",
     "pages/moviedetail/moviedetail",
@@ -10,29 +10,28 @@
   "tabBar": {
     "list": [
       {
-        "iconPath": "img/icon.jpg",
-        "selectedIconPath": "img/icon.jpg",
+        "iconPath": "img/comingsoon-1.png",
+        "selectedIconPath": "img/comingsoon-2.png",
         "pagePath": "pages/comingsoon/commingsoon",
         "text": "即将上映"
       },
       {
-        "iconPath": "img/icon.jpg",
-        "selectedIconPath": "img/icon.jpg",
+        "iconPath": "img/intheaters-1.png",
+        "selectedIconPath": "img/intheaters-2.png",
         "pagePath": "pages/intheaters/intheaters",
         "text": "正在热映"
       },
       {
-        "iconPath": "img/icon.jpg",
-        "selectedIconPath": "img/icon.jpg",
+        "iconPath": "img/mycollection-2.png",
+        "selectedIconPath": "img/mycollection-1.png",
         "pagePath": "pages/index/index",
-        "text": "我的"
+        "text": "我的电影"
       }
     ]
   },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   }
 }

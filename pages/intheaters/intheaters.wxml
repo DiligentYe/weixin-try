@@ -1,5 +1,4 @@
 <!--intheaters.wxml-->
-<!--<import src="../../template.wxml"/>-->
 <template name="movieList">
 <view class="movie-card-wrap">
   <block wx:for="{{inTheaterMovie}}" wx:for-item="movie" bindtap="showDetail">
