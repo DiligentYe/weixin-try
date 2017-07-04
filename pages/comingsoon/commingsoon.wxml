@@ -3,5 +3,5 @@
 <!--渲染模版-->
 <template is="movieList" data="{{inTheaterMovie}}" />
 
-<view class="end-tips" wx:if="{{isEnd}}">已经加载全部</view>
-<view class="end-tips" wx:if="{{!isEnd}}">正在加载...</view>
+<!--<view class="end-tips" wx:if="{{isEnd}}">已经加载全部</view>
+<view class="end-tips" wx:if="{{!isEnd}}">正在加载...</view>-->

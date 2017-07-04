@@ -1,7 +1,9 @@
-// commingsoon.js
+// intheaters.js
 //获取应用实例
 var app = getApp();
 var loadUrl = 'https://api.douban.com/v2/movie/coming_soon';
+// 引用百度地图微信小程序JSAPI模块 
+var bmap = require('../../libs/bmap-wx.min.js');
 
 Page({
   /**
@@ -19,7 +21,9 @@ Page({
     // 是否已经加载全部
     isEnd: false,
     // 存储已经添加收藏电影信息
-    myMovies: {}
+    myMovies: {},
+    // 当前城市
+    city: ''
   },
 
   /**
@@ -27,40 +31,79 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    // 发送请求数据,请求电影信息
-    wx.request({
-      url: loadUrl,
-      data: {
-        "start": this.data.start,
-        "count": this.data.requestCount
-      },
-      // 必须采用POST方法请求数据
-      method: 'POST',
-      header: {
-        'content-type': 'application/json'
-      },
-      // 请求数据成功之后,重新渲染页面
-      success: function (res) {
-        // 更新数据
-        that.appendData(res);
-        // 更新视图
-        that.setData({
-          inTheaterMovie: that.data.inTheaterMovie,
-          start: that.data.requestCount + that.data.start,
-          total: res.total
-        });
-      },
-      fail: function (res) {
-        console.log('error');
-      }
+    // 获取当前所在城市名称
+    // 新建百度地图对象 
+    var BMap = new bmap.BMapWX({
+      ak: 'nOQqvMwIh04BMjeQ4dwRW3H1c6ki5t04'
     });
-    // 获取已收藏电影信息
-    try {
-      var my_movie = wx.getStorageSync('my_movie');
-      this.data.myMovies = my_movie ? my_movie : [];
-    } catch (e) {
-      this.data.myMovies = [];
+
+    var fail = function (data) {
+      console.log(data)
+    };
+    var success = function (res) {
+      var wxMarkerData = res.wxMarkerData;
+      console.log(wxMarkerData);
+      that.data.city = wxMarkerData[0].address.split('市')[0];
+      // that.data.city = '上海';
+
+      // 提示正在加载
+      wx.showLoading({
+        title: '加载中',
+      });
+      encodeURIComponent
+      // 发送请求数据,请求电影信息
+      loadUrl += "?city=" + that.data.city;
+      console.log(loadUrl);
+      wx.request({
+        url: loadUrl,
+        data: {
+          "start": that.data.start,
+          "count": that.data.requestCount,
+          // "city": that.data.city
+        },
+        // 必须采用POST方法请求数据
+        method: 'GET',
+        header: {
+          'content-type': 'json'
+        },
+        // 请求数据成功之后,重新渲染页面
+        success: function (res) {
+          // 手动关闭加载
+          wx.hideLoading();
+          // 更新数据
+          that.appendData(res);
+          // 更新视图
+          that.setData({
+            inTheaterMovie: that.data.inTheaterMovie,
+            start: that.data.requestCount + that.data.start,
+            total: res.total
+          });
+        },
+        fail: function (res) {
+          // 手动关闭加载
+          wx.hideLoading();
+          // 提示加载失败
+          wx.showToast({
+            title: '加载失败',
+            icon: 'success',
+            duration: 2000
+          });
+          console.log('error');
+        }
+      });
+      // 获取已收藏电影信息
+      try {
+        var my_movie = wx.getStorageSync('my_movie');
+        that.data.myMovies = my_movie ? my_movie : [];
+      } catch (e) {
+        that.data.myMovies = [];
+      }
     }
+    // 发起regeocoding检索请求 
+    BMap.regeocoding({
+      fail: fail,
+      success: success,
+    });
   },
 
   /**
@@ -97,41 +140,56 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    var that = this;
-    // 发送请求数据
-    wx.request({
-      url: loadUrl,
-      data: {
-        "start": this.data.start,
-        "count": this.data.requestCount
-      },
-      // 必须采用POST方法请求数据
-      method: 'POST',
-      header: {
-        'content-type': 'application/json'
-      },
-      // 请求数据成功之后,重新渲染页面
-      success: function (res) {
-        var len = res.data.subjects.length;
-        if (len != 0) {
-          // 更新数据
-          that.appendData(res);
-          // 更新视图
-          that.setData({
-            inTheaterMovie: that.data.inTheaterMovie,
-            start: that.data.requestCount + that.data.start,
-            total: res.total
-          });
-        } else {
-          that.setData({
-            isEnd: true
-          });
+    if (!this.data.isEnd) {
+      // 提示正在加载
+      wx.showLoading({
+        title: '加载中',
+      })
+
+      var that = this;
+      // 发送请求数据
+      wx.request({
+        url: loadUrl,
+        data: {
+          "start": this.data.start,
+          "count": this.data.requestCount
+        },
+        // 必须采用POST方法请求数据
+        method: 'POST',
+        header: {
+          'content-type': 'application/json'
+        },
+        // 请求数据成功之后,重新渲染页面
+        success: function (res) {
+          // 手动关闭加载
+          wx.hideLoading();
+          var len = res.data.subjects.length;
+          if (len != 0) {
+            // 更新数据
+            that.appendData(res);
+            // 更新视图
+            that.setData({
+              inTheaterMovie: that.data.inTheaterMovie,
+              start: that.data.requestCount + that.data.start,
+              total: res.total
+            });
+          } else {
+            that.setData({
+              isEnd: true
+            });
+          }
+        },
+        fail: function (res) {
+          console.log('error');
         }
-      },
-      fail: function (res) {
-        console.log('error');
-      }
-    });
+      });
+    } else {
+      wx.showToast({
+        title: '已加载全部',
+        icon: 'success',
+        duration: 2000
+      });
+    }
   },
 
   /**
@@ -149,20 +207,32 @@ Page({
    * 判断电影收藏或者取消
    */
   addMovie: function (event) {
-    // 如果已经收藏，则取消收藏
+
     // 在loacolstore中的位置
     var index_loc = this.isAddTo(event.target.dataset.id);
     // 在inTheaterMovie中的位置
     var index_data = this.getPosition(event.target.dataset.id);
-
+    // 如果已经收藏，则取消收藏
     if (index_loc != -1) {
       this.data.inTheaterMovie[index_data].isAdd = false;
       this.data.myMovies.splice(index_loc, 1);
+      // 显示提示
+      wx.showToast({
+        title: '取消收藏',
+        icon: 'success',
+        duration: 2000
+      });
 
     } else {
       // 如果没有收藏，添加收藏
       this.data.inTheaterMovie[index_data].isAdd = true;
       this.data.myMovies.push(this.data.inTheaterMovie[index_data]);
+      // 显示提示
+      wx.showToast({
+        title: '已收藏',
+        icon: 'success',
+        duration: 2000
+      });
     }
     // 更新localstore  
     try {

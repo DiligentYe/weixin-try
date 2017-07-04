@@ -4,6 +4,9 @@
 
 ### 显示正在上映及即将上映电影
 
+  利用豆瓣电影api，获取电影信息
+  利用百度地图api，根据当前位置判断所在城市
+
   当页面加载时，在onload函数中请求豆瓣电影数据接口，将接口数据展示出来添加到data中存放电影的属性中，然后通过setData函数将数据同步到对应页面中；
   
   每个电影都可以添加收藏，存储到localstore中；
@@ -59,6 +62,17 @@
 
     WXSS中：
     @import "../intheaters/intheaters.wxss";
+
+6. request，get请求出现400 bad request问题
+    官方文档有问题，最新版本，get请求的header中'content-type'需要设置为: 'json'
+    header: {
+          // 'content-type': 'application/json'
+          'content-type': 'json'
+    },
+
+7. 豆瓣电影api中，无法利用get方法，请求不同的城市的电影数据
+
+8. 
 
 
 
