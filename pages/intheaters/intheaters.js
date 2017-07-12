@@ -43,7 +43,14 @@ Page({
     var success = function (res) {
       var wxMarkerData = res.wxMarkerData;
       console.log(wxMarkerData);
-      that.data.city = wxMarkerData[0].address.split('市')[0];
+      if (wxMarkerData[0].address.indexOf('省') == -1){
+        that.data.city = wxMarkerData[0].address.split('市')[0];
+      } else {
+        wxMarkerData[0].address.replace(/省(.*?)市/, function (match, city) { 
+          that.data.city = city;
+          })
+      }
+      
       // that.data.city = '上海';
 
       // 提示正在加载
